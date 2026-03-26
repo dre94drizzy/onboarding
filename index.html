@@ -7,173 +7,116 @@
 <title>Client Onboarding — Credit Repair</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --navy: #0B1F3A;
-    --navy-light: #1C3A5C;
-    --gold: #C9A84C;
-    --gold-light: #E8C96A;
-    --cream: #F5F0E8;
-    --cream-dark: #EDE6D6;
-    --text-dark: #0B1F3A;
-    --text-mid: #3A5070;
-    --text-light: #7A92A8;
-    --border: rgba(201,168,76,0.25);
-    --shadow: 0 8px 40px rgba(11,31,58,0.13);
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--navy);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0 0 60px;
-    position: relative;
-    overflow-x: hidden;
-  }
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.07) 0%, transparent 70%),
-      repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,255,255,0.012) 40px, rgba(255,255,255,0.012) 41px);
-    pointer-events: none;
-    z-index: 0;
-  }
-  .page-wrapper { position: relative; z-index: 1; width: 100%; max-width: 660px; padding: 0 20px; }
-  .header { text-align: center; padding: 52px 0 38px; }
-  .logo-badge { display: inline-flex; align-items: center; gap: 10px; background: rgba(201,168,76,0.12); border: 1px solid var(--border); border-radius: 50px; padding: 8px 20px; margin-bottom: 22px; }
-  .logo-badge-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.5;transform:scale(0.85);} }
-  .logo-badge span { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
-  .header h1 { font-family: 'Playfair Display', serif; font-size: clamp(26px,5vw,40px); font-weight: 700; color: white; line-height: 1.2; margin-bottom: 12px; }
-  .header h1 span { color: var(--gold); }
-  .header p { font-size: 14px; color: var(--text-light); max-width: 400px; margin: 0 auto; line-height: 1.7; font-weight: 300; }
-
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: #0B1F3A;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 20px 60px;
+}
+.page-wrapper { width: 100%; max-width: 660px; }
+.header { text-align: center; padding: 52px 0 38px; }
+.logo-badge { display: inline-flex; align-items: center; gap: 10px; background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.25); border-radius: 50px; padding: 8px 20px; margin-bottom: 22px; }
+.logo-badge-dot { width: 8px; height: 8px; border-radius: 50%; background: #C9A84C; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+.logo-badge span { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #C9A84C; }
+.header h1 { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: white; margin-bottom: 12px; }
+.header h1 span { color: #C9A84C; }
+.header p { font-size: 14px; color: #7A92A8; max-width: 400px; margin: 0 auto; line-height: 1.7; }
 .progress-track { display: flex; align-items: center; justify-content: center; margin-bottom: 34px; }
 .step-item { display: flex; flex-direction: column; align-items: center; gap: 7px; flex: 1; position: relative; }
-.step-item::before { content: ‘’; position: absolute; top: 17px; left: calc(50% + 18px); right: calc(-50% + 18px); height: 1px; background: rgba(201,168,76,0.2); transition: background 0.4s; }
+.step-item::before { content: ''; position: absolute; top: 17px; left: calc(50% + 18px); right: calc(-50% + 18px); height: 1px; background: rgba(201,168,76,0.2); }
 .step-item:last-child::before { display: none; }
-.step-item.completed::before { background: var(–gold); }
-.step-circle { width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid rgba(201,168,76,0.3); background: var(–navy); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: var(–text-light); transition: all 0.35s; position: relative; z-index: 2; }
-.step-item.active .step-circle { background: var(–gold); border-color: var(–gold); color: var(–navy); box-shadow: 0 0 0 6px rgba(201,168,76,0.15); }
-.step-item.completed .step-circle { background: rgba(201,168,76,0.15); border-color: var(–gold); color: var(–gold); }
-.step-label { font-size: 10px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(–text-light); text-align: center; }
-.step-item.active .step-label { color: var(–gold); }
-.step-item.completed .step-label { color: rgba(201,168,76,0.7); }
-
-.card { background: rgba(255,255,255,0.97); border-radius: 20px; padding: 40px 44px; box-shadow: var(–shadow); border: 1px solid rgba(201,168,76,0.15); animation: fadeUp 0.35s ease; }
-@keyframes fadeUp { from{opacity:0;transform:translateY(14px);} to{opacity:1;transform:translateY(0);} }
-.section-title { display: flex; align-items: center; gap: 12px; margin-bottom: 26px; padding-bottom: 18px; border-bottom: 1px solid var(–cream-dark); }
-.section-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(–navy), var(–navy-light)); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.section-icon svg { width: 19px; height: 19px; fill: var(–gold); }
-.section-title-text h2 { font-family: ‘Playfair Display’, serif; font-size: 19px; font-weight: 600; color: var(–text-dark); }
-.section-title-text p { font-size: 12px; color: var(–text-light); margin-top: 2px; }
-
+.step-circle { width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid rgba(201,168,76,0.3); background: #0B1F3A; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #7A92A8; position: relative; z-index: 2; }
+.step-item.active .step-circle { background: #C9A84C; border-color: #C9A84C; color: #0B1F3A; }
+.step-item.completed .step-circle { background: rgba(201,168,76,0.15); border-color: #C9A84C; color: #C9A84C; }
+.step-label { font-size: 10px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: #7A92A8; text-align: center; }
+.step-item.active .step-label { color: #C9A84C; }
+.card { background: white; border-radius: 20px; padding: 40px 44px; box-shadow: 0 8px 40px rgba(11,31,58,0.13); border: 1px solid rgba(201,168,76,0.15); }
+.iiq-landing-icon { width: 72px; height: 72px; background: linear-gradient(135deg, #0B1F3A, #1C3A5C); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
+.iiq-landing-icon svg { width: 34px; height: 34px; fill: #C9A84C; }
+.iiq-landing-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #0B1F3A; text-align: center; margin-bottom: 10px; }
+.iiq-landing-title span { color: #C9A84C; }
+.iiq-landing-sub { font-size: 14px; color: #7A92A8; text-align: center; line-height: 1.7; margin-bottom: 28px; }
+.iiq-steps-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+.iiq-step-row { display: flex; align-items: flex-start; gap: 14px; background: #F5F0E8; border-radius: 11px; padding: 14px 16px; }
+.iiq-step-num { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #0B1F3A, #1C3A5C); color: #C9A84C; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.iiq-step-text strong { display: block; font-size: 13px; font-weight: 600; color: #0B1F3A; margin-bottom: 2px; }
+.iiq-step-text span { font-size: 12px; color: #7A92A8; line-height: 1.5; }
+.btn-iiq-signup { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 15px 24px; background: linear-gradient(135deg, #C9A84C, #E8C96A); color: #0B1F3A; border: none; border-radius: 11px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700; text-decoration: none; cursor: pointer; margin-bottom: 14px; }
+.btn-iiq-signup svg { width: 15px; height: 15px; fill: #0B1F3A; }
+.btn-already-have { display: flex; align-items: center; justify-content: center; width: 100%; padding: 13px 24px; background: transparent; border: 1.5px solid #DDD8CC; border-radius: 11px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; color: #3A5070; cursor: pointer; }
+.section-title { display: flex; align-items: center; gap: 12px; margin-bottom: 26px; padding-bottom: 18px; border-bottom: 1px solid #EDE6D6; }
+.section-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #0B1F3A, #1C3A5C); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.section-icon svg { width: 19px; height: 19px; fill: #C9A84C; }
+.section-title-text h2 { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 600; color: #0B1F3A; }
+.section-title-text p { font-size: 12px; color: #7A92A8; margin-top: 2px; }
+.security-notice { display: flex; align-items: flex-start; gap: 9px; background: rgba(11,31,58,0.05); border: 1px solid rgba(11,31,58,0.1); border-radius: 9px; padding: 11px 13px; margin-bottom: 18px; font-size: 12px; color: #3A5070; line-height: 1.5; }
 .form-row { display: grid; gap: 16px; margin-bottom: 16px; }
-.form-row.cols-2 { grid-template-columns: 1fr 1fr; }
 .field { display: flex; flex-direction: column; gap: 7px; }
-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(–text-mid); }
-label .req { color: var(–gold); margin-left: 2px; }
-input[type=“text”],input[type=“email”],input[type=“date”],input[type=“password”] { width: 100%; padding: 12px 15px; border: 1.5px solid #DDD8CC; border-radius: 10px; font-family: ‘DM Sans’, sans-serif; font-size: 14px; color: var(–text-dark); background: var(–cream); transition: all 0.25s; outline: none; appearance: none; }
-input:focus { border-color: var(–gold); background: #FFFDF7; box-shadow: 0 0 0 3px rgba(201,168,76,0.12); }
+label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3A5070; }
+.req { color: #C9A84C; margin-left: 2px; }
+input[type="text"], input[type="date"], input[type="password"] { width: 100%; padding: 12px 15px; border: 1.5px solid #DDD8CC; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: #0B1F3A; background: #F5F0E8; outline: none; }
+input:focus { border-color: #C9A84C; }
 input::placeholder { color: #BBBBBB; }
 .ssn-wrapper { position: relative; }
 .ssn-wrapper input { padding-right: 44px; }
-.ssn-toggle { position: absolute; right: 13px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(–text-light); display: flex; align-items: center; transition: color 0.2s; }
-.ssn-toggle:hover { color: var(–navy); }
-.security-notice { display: flex; align-items: flex-start; gap: 9px; background: rgba(11,31,58,0.05); border: 1px solid rgba(11,31,58,0.1); border-radius: 9px; padding: 11px 13px; margin-bottom: 18px; font-size: 12px; color: var(–text-mid); line-height: 1.5; }
-
-.upload-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(–text-mid); display: block; margin-bottom: 9px; }
-.upload-label .req { color: var(–gold); margin-left: 2px; }
+.ssn-toggle { position: absolute; right: 13px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: #7A92A8; display: flex; align-items: center; }
+.upload-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3A5070; display: block; margin-bottom: 9px; }
 .id-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.upload-zone { border: 2px dashed rgba(201,168,76,0.4); border-radius: 13px; padding: 28px 16px; text-align: center; cursor: pointer; background: rgba(201,168,76,0.03); transition: all 0.25s; position: relative; overflow: hidden; }
-.upload-zone:hover,.upload-zone.drag-over { border-color: var(–gold); background: rgba(201,168,76,0.07); }
-.upload-zone.done { border-color: #2A7A5A; border-style: solid; background: rgba(42,122,90,0.05); }
-.upload-zone input[type=“file”] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
-.upload-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(–navy), var(–navy-light)); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 0 auto 11px; }
-.upload-icon svg { width: 19px; height: 19px; fill: var(–gold); }
-.upload-zone h3 { font-size: 13px; font-weight: 600; color: var(–text-dark); margin-bottom: 5px; }
-.upload-zone p { font-size: 11px; color: var(–text-light); line-height: 1.5; }
-.upload-zone p strong { color: var(–gold); }
-.file-chip { margin-top: 10px; display: flex; align-items: center; gap: 7px; background: rgba(11,31,58,0.06); border-radius: 7px; padding: 7px 10px; font-size: 11px; color: var(–text-dark); font-weight: 500; position: relative; z-index: 10; pointer-events: none; }
-.file-chip svg { flex-shrink: 0; }
+.upload-zone { border: 2px dashed rgba(201,168,76,0.4); border-radius: 13px; padding: 28px 16px; text-align: center; cursor: pointer; background: rgba(201,168,76,0.03); position: relative; overflow: hidden; }
+.upload-zone.done { border-color: #2A7A5A; border-style: solid; }
+.upload-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+.upload-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #0B1F3A, #1C3A5C); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 0 auto 11px; }
+.upload-icon svg { width: 19px; height: 19px; fill: #C9A84C; }
+.upload-zone h3 { font-size: 13px; font-weight: 600; color: #0B1F3A; margin-bottom: 5px; }
+.upload-zone p { font-size: 11px; color: #7A92A8; line-height: 1.5; }
+.upload-zone p strong { color: #C9A84C; }
+.file-chip { margin-top: 10px; display: flex; align-items: center; gap: 7px; background: rgba(11,31,58,0.06); border-radius: 7px; padding: 7px 10px; font-size: 11px; color: #0B1F3A; font-weight: 500; pointer-events: none; }
 .file-chip span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
-
-.iiq-signup-banner { display: flex; align-items: center; gap: 14px; background: linear-gradient(135deg, var(–navy), var(–navy-light)); border-radius: 13px; padding: 16px 18px; margin-bottom: 16px; }
+.iiq-signup-banner { display: flex; align-items: center; gap: 14px; background: linear-gradient(135deg, #0B1F3A, #1C3A5C); border-radius: 13px; padding: 16px 18px; margin-bottom: 16px; flex-wrap: wrap; }
 .iiq-icon-box { width: 42px; height: 42px; background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.iiq-icon-box svg { width: 22px; height: 22px; fill: var(–gold); }
+.iiq-icon-box svg { width: 22px; height: 22px; fill: #C9A84C; }
 .iiq-banner-text { flex: 1; }
 .iiq-banner-text strong { display: block; font-size: 13px; font-weight: 600; color: white; margin-bottom: 2px; }
 .iiq-banner-text span { font-size: 11px; color: rgba(255,255,255,0.5); }
-.iiq-signup-btn { display: inline-flex; align-items: center; gap: 6px; background: var(–gold); color: var(–navy); font-family: ‘DM Sans’, sans-serif; font-size: 12px; font-weight: 700; padding: 9px 15px; border-radius: 8px; text-decoration: none; flex-shrink: 0; transition: background 0.2s, transform 0.2s; white-space: nowrap; }
-.iiq-signup-btn:hover { background: var(–gold-light); transform: translateY(-1px); }
-.iiq-signup-btn svg { width: 12px; height: 12px; fill: var(–navy); }
-
+.iiq-signup-btn { display: inline-flex; align-items: center; gap: 6px; background: #C9A84C; color: #0B1F3A; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700; padding: 9px 15px; border-radius: 8px; text-decoration: none; white-space: nowrap; }
+.iiq-signup-btn svg { width: 12px; height: 12px; fill: #0B1F3A; }
 .credential-disclosure { background: #FFFBF0; border: 1.5px solid rgba(201,168,76,0.4); border-radius: 12px; padding: 16px 18px; margin-bottom: 20px; }
 .credential-disclosure-header { display: flex; align-items: center; gap: 9px; margin-bottom: 10px; }
-.credential-disclosure-header strong { font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(–text-dark); }
+.credential-disclosure-header strong { font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #0B1F3A; }
 .credential-disclosure ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 7px; }
-.credential-disclosure ul li { display: flex; align-items: flex-start; gap: 9px; font-size: 12px; color: var(–text-mid); line-height: 1.55; }
-.credential-disclosure ul li::before { content: ‘’; width: 5px; height: 5px; border-radius: 50%; background: var(–gold); flex-shrink: 0; margin-top: 5px; }
-
+.credential-disclosure ul li { display: flex; align-items: flex-start; gap: 9px; font-size: 12px; color: #3A5070; line-height: 1.55; }
+.credential-disclosure ul li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: #C9A84C; flex-shrink: 0; margin-top: 5px; }
 .nav-buttons { display: flex; gap: 12px; margin-top: 28px; }
-.btn-back { padding: 13px 24px; border: 1.5px solid #DDD8CC; border-radius: 10px; background: transparent; font-family: ‘DM Sans’, sans-serif; font-size: 14px; font-weight: 500; color: var(–text-mid); cursor: pointer; transition: all 0.25s; }
-.btn-back:hover { border-color: var(–gold); color: var(–text-dark); }
-.btn-next { flex: 1; padding: 14px 24px; background: linear-gradient(135deg, var(–navy), var(–navy-light)); color: white; border: none; border-radius: 10px; font-family: ‘DM Sans’, sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.25s; position: relative; overflow: hidden; }
-.btn-next::before { content: ‘’; position: absolute; inset: 0; background: linear-gradient(135deg, var(–gold), var(–gold-light)); opacity: 0; transition: opacity 0.3s; }
-.btn-next:hover::before { opacity: 1; }
-.btn-next:hover { color: var(–navy); box-shadow: 0 6px 24px rgba(201,168,76,0.3); transform: translateY(-1px); }
-.btn-next span,.btn-next svg { position: relative; z-index: 1; }
+.btn-back { padding: 13px 24px; border: 1.5px solid #DDD8CC; border-radius: 10px; background: transparent; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; color: #3A5070; cursor: pointer; }
+.btn-next { flex: 1; padding: 14px 24px; background: linear-gradient(135deg, #0B1F3A, #1C3A5C); color: white; border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
 .btn-next svg { width: 15px; height: 15px; }
-.btn-submit { flex: 1; padding: 14px 24px; background: linear-gradient(135deg, #1a5c38, #1f7a4a); color: white; border: none; border-radius: 10px; font-family: ‘DM Sans’, sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.25s; }
-.btn-submit:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(26,92,56,0.35); }
+.btn-submit { flex: 1; padding: 14px 24px; background: linear-gradient(135deg, #1a5c38, #1f7a4a); color: white; border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
 .btn-submit svg { width: 15px; height: 15px; fill: white; }
-.btn-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
-
-.iiq-landing-icon { width: 72px; height: 72px; background: linear-gradient(135deg, var(–navy), var(–navy-light)); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; box-shadow: 0 6px 24px rgba(11,31,58,0.18); }
-.iiq-landing-icon svg { width: 34px; height: 34px; fill: var(–gold); }
-.iiq-landing-title { font-family: ‘Playfair Display’, serif; font-size: 22px; font-weight: 700; color: var(–text-dark); text-align: center; margin-bottom: 10px; }
-.iiq-landing-title span { color: var(–gold); }
-.iiq-landing-sub { font-size: 14px; color: var(–text-light); text-align: center; line-height: 1.7; margin-bottom: 28px; font-weight: 300; }
-.iiq-steps-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
-.iiq-step-row { display: flex; align-items: flex-start; gap: 14px; background: var(–cream); border-radius: 11px; padding: 14px 16px; }
-.iiq-step-num { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, var(–navy), var(–navy-light)); color: var(–gold); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.iiq-step-text strong { display: block; font-size: 13px; font-weight: 600; color: var(–text-dark); margin-bottom: 2px; }
-.iiq-step-text span { font-size: 12px; color: var(–text-light); line-height: 1.5; }
-.btn-iiq-signup { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 15px 24px; background: linear-gradient(135deg, var(–gold), var(–gold-light)); color: var(–navy); border: none; border-radius: 11px; font-family: ‘DM Sans’, sans-serif; font-size: 15px; font-weight: 700; text-decoration: none; cursor: pointer; transition: all 0.25s; margin-bottom: 14px; }
-.btn-iiq-signup:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(201,168,76,0.4); }
-.btn-iiq-signup svg { width: 15px; height: 15px; fill: var(–navy); }
-.btn-already-have { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 13px 24px; background: transparent; border: 1.5px solid #DDD8CC; border-radius: 11px; font-family: ‘DM Sans’, sans-serif; font-size: 14px; font-weight: 500; color: var(–text-mid); cursor: pointer; transition: all 0.25s; }
-.btn-already-have:hover { border-color: var(–gold); color: var(–text-dark); }
-
-.success-card { text-align: center; padding: 52px 36px; }
-.success-icon { width: 76px; height: 76px; background: linear-gradient(135deg, var(–navy), var(–navy-light)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; box-shadow: 0 0 0 12px rgba(201,168,76,0.1); }
-.success-icon svg { width: 34px; height: 34px; fill: var(–gold); }
-.success-card h2 { font-family: ‘Playfair Display’, serif; font-size: 26px; color: var(–text-dark); margin-bottom: 12px; }
-.success-card > p { font-size: 14px; color: var(–text-mid); line-height: 1.7; max-width: 370px; margin: 0 auto 26px; }
-.success-summary { background: var(–cream); border-radius: 12px; padding: 22px 24px; text-align: left; }
-.summary-row { display: flex; align-items: baseline; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(–cream-dark); font-size: 13px; }
-.summary-row:last-child { border-bottom: none; }
-.summary-row .key { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(–text-light); width: 110px; flex-shrink: 0; }
-.summary-row .val { color: var(–text-dark); font-weight: 500; }
-
+.btn-submit:disabled { opacity: 0.7; cursor: not-allowed; }
 .error-banner { display: flex; align-items: center; gap: 9px; background: rgba(168,50,50,0.07); border: 1px solid rgba(168,50,50,0.25); border-radius: 9px; padding: 11px 14px; margin-top: 14px; font-size: 13px; color: #7a2020; }
+.success-card { text-align: center; padding: 52px 36px; }
+.success-icon { width: 76px; height: 76px; background: linear-gradient(135deg, #0B1F3A, #1C3A5C); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
+.success-icon svg { width: 34px; height: 34px; fill: #C9A84C; }
+.success-card h2 { font-family: 'Playfair Display', serif; font-size: 26px; color: #0B1F3A; margin-bottom: 12px; }
+.success-card > p { font-size: 14px; color: #3A5070; line-height: 1.7; max-width: 370px; margin: 0 auto 26px; }
+.success-summary { background: #F5F0E8; border-radius: 12px; padding: 22px 24px; text-align: left; }
+.summary-row { display: flex; align-items: baseline; gap: 10px; padding: 8px 0; border-bottom: 1px solid #EDE6D6; font-size: 13px; }
+.summary-row:last-child { border-bottom: none; }
+.summary-row .key { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #7A92A8; width: 110px; flex-shrink: 0; }
+.summary-row .val { color: #0B1F3A; font-weight: 500; }
 .footer { text-align: center; padding: 24px 0 0; font-size: 12px; color: rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; gap: 14px; }
-.hidden { display: none !important; }
-@keyframes spin { from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
-
 @media (max-width: 560px) {
-.card { padding: 26px 20px; }
-.form-row.cols-2,.id-grid { grid-template-columns: 1fr; }
-.nav-buttons { flex-direction: column; }
-.btn-back { order: 2; }
-.iiq-signup-banner { flex-wrap: wrap; }
+  .card { padding: 26px 20px; }
+  .id-grid { grid-template-columns: 1fr; }
+  .nav-buttons { flex-direction: column; }
+  .btn-back { order: 2; }
 }
 </style>
-
 </head>
 <body>
 <div class="page-wrapper">
@@ -187,8 +130,8 @@ input::placeholder { color: #BBBBBB; }
     <p>Complete all steps so we can begin working on your credit repair right away.</p>
   </div>
 
-  <div class="progress-track" style="display:none" id="progressTrack">
-    <div class="step-item active" data-step="1">
+  <div class="progress-track" id="progressTrack" style="display:none">
+    <div class="step-item" data-step="1">
       <div class="step-circle">1</div>
       <span class="step-label">Personal</span>
     </div>
@@ -209,7 +152,7 @@ input::placeholder { color: #BBBBBB; }
       <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
     </div>
     <div class="iiq-landing-title">First, Sign Up for <span>Identity IQ</span></div>
-    <p class="iiq-landing-sub">Before filling out your onboarding form, you'll need an active Identity IQ account. It takes just a few minutes — here's what to do:</p>
+    <p class="iiq-landing-sub">Before filling out your onboarding form, you'll need an active Identity IQ account. It takes just a few minutes.</p>
     <div class="iiq-steps-list">
       <div class="iiq-step-row">
         <div class="iiq-step-num">1</div>
@@ -229,7 +172,7 @@ input::placeholder { color: #BBBBBB; }
         <div class="iiq-step-num">3</div>
         <div class="iiq-step-text">
           <strong>Return here and continue</strong>
-          <span>Once your account is created, click "I Already Have an Account" below to start the form.</span>
+          <span>Once your account is created, click the button below to start the form.</span>
         </div>
       </div>
     </div>
@@ -237,14 +180,14 @@ input::placeholder { color: #BBBBBB; }
       <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
       Create My Identity IQ Account
     </a>
-    <button class="btn-already-have" id="alreadyHaveBtn">
+    <button class="btn-already-have" id="btnAlreadyHave">
       I Already Have an Account — Continue to Form
     </button>
   </div>
 
   <!-- STEP 1 -->
 
-  <div class="card" style="display:none" id="step1">
+  <div class="card" id="step1" style="display:none">
     <div class="section-title">
       <div class="section-icon">
         <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
@@ -271,8 +214,8 @@ input::placeholder { color: #BBBBBB; }
       </div>
     </div>
     <div class="nav-buttons">
-      <button class="btn-back" onclick="goTo(0)">Back</button>
-      <button class="btn-next" onclick="goTo(2)">
+      <button class="btn-back" id="btn1Back">Back</button>
+      <button class="btn-next" id="btn1Next">
         <span>Continue to ID Upload</span>
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
       </button>
@@ -281,7 +224,7 @@ input::placeholder { color: #BBBBBB; }
 
   <!-- STEP 2 -->
 
-  <div class="card" style="display:none" id="step2">
+  <div class="card" id="step2" style="display:none">
     <div class="section-title">
       <div class="section-icon">
         <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8h16v10zM6 10h4v4H6z"/></svg>
@@ -294,40 +237,34 @@ input::placeholder { color: #BBBBBB; }
     <div class="id-grid">
       <div>
         <span class="upload-label">Front of ID <span class="req">*</span></span>
-        <div class="upload-zone" id="frontZone"
-          ondragover="handleDrag(event,'frontZone')"
-          ondragleave="handleDragLeave('frontZone')"
-          ondrop="handleDrop(event,'front','frontZone')">
+        <div class="upload-zone" id="frontZone">
           <input type="file" accept="image/*,.pdf" onchange="handleFile(this,'front','frontZone')">
           <div class="upload-icon"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div>
           <h3>Front of ID</h3>
-          <p>Driver's License, Passport<br>or State ID<br><strong>JPG, PNG or PDF</strong></p>
-          <div class="file-chip hidden" id="front-chip">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="var(--gold)"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg>
+          <p>Driver's License, Passport or State ID<br><strong>JPG, PNG or PDF</strong></p>
+          <div class="file-chip" id="front-chip" style="display:none">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#C9A84C"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg>
             <span id="front-name"></span>
           </div>
         </div>
       </div>
       <div>
         <span class="upload-label">Back of ID <span class="req">*</span></span>
-        <div class="upload-zone" id="backZone"
-          ondragover="handleDrag(event,'backZone')"
-          ondragleave="handleDragLeave('backZone')"
-          ondrop="handleDrop(event,'back','backZone')">
+        <div class="upload-zone" id="backZone">
           <input type="file" accept="image/*,.pdf" onchange="handleFile(this,'back','backZone')">
           <div class="upload-icon"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div>
           <h3>Back of ID</h3>
-          <p>Make sure all text<br>is clearly visible<br><strong>JPG, PNG or PDF</strong></p>
-          <div class="file-chip hidden" id="back-chip">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="var(--gold)"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg>
+          <p>Make sure all text is clearly visible<br><strong>JPG, PNG or PDF</strong></p>
+          <div class="file-chip" id="back-chip" style="display:none">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#C9A84C"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg>
             <span id="back-name"></span>
           </div>
         </div>
       </div>
     </div>
     <div class="nav-buttons" style="margin-top:24px">
-      <button class="btn-back" onclick="goTo(1)">Back</button>
-      <button class="btn-next" onclick="goTo(3)">
+      <button class="btn-back" id="btn2Back">Back</button>
+      <button class="btn-next" id="btn2Next">
         <span>Continue to Credit Login</span>
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
       </button>
@@ -336,7 +273,7 @@ input::placeholder { color: #BBBBBB; }
 
   <!-- STEP 3 -->
 
-  <div class="card" style="display:none" id="step3">
+  <div class="card" id="step3" style="display:none">
     <div class="section-title">
       <div class="section-icon">
         <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
@@ -361,7 +298,7 @@ input::placeholder { color: #BBBBBB; }
     </div>
     <div class="credential-disclosure">
       <div class="credential-disclosure-header">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--gold)"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7L12 2z"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#C9A84C"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7L12 2z"/></svg>
         <strong>Why we need your login</strong>
       </div>
       <ul>
@@ -382,19 +319,19 @@ input::placeholder { color: #BBBBBB; }
         <label>Identity IQ Password <span class="req">*</span></label>
         <div class="ssn-wrapper">
           <input type="password" id="iiq-pass" placeholder="Your IdentityIQ password" autocomplete="off">
-          <button class="ssn-toggle" type="button" onclick="toggleField('iiq-pass')">
+          <button class="ssn-toggle" type="button" id="togglePass">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           </button>
         </div>
       </div>
     </div>
-    <div id="submitError" class="error-banner hidden">
+    <div id="submitError" class="error-banner" style="display:none">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
       Something went wrong. Please try again.
     </div>
     <div class="nav-buttons">
-      <button class="btn-back" onclick="goTo(2)">Back</button>
-      <button class="btn-submit" id="submitBtn" onclick="submitForm()">
+      <button class="btn-back" id="btn3Back">Back</button>
+      <button class="btn-submit" id="submitBtn">
         <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
         Submit My Information
       </button>
@@ -403,7 +340,7 @@ input::placeholder { color: #BBBBBB; }
 
   <!-- SUCCESS -->
 
-  <div class="card" style="display:none" id="stepSuccess">
+  <div class="card" id="stepSuccess" style="display:none">
     <div class="success-card">
       <div class="success-icon">
         <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
@@ -422,127 +359,98 @@ input::placeholder { color: #BBBBBB; }
 
 </div>
 <script>
-  const ALL_STEPS = ['step0','step1','step2','step3','stepSuccess'];
-
-function goTo(step) {
-ALL_STEPS.forEach(function(id) {
-var el = document.getElementById(id);
-if (el) el.style.display = ‘none’;
-});
-
-```
-if (step === 'success') {
-  document.getElementById('stepSuccess').style.display = 'block';
-  document.getElementById('progressTrack').style.display = 'none';
-  buildSummary();
-  window.scrollTo({top:0,behavior:'smooth'});
-  return;
-}
-
-var target = document.getElementById('step' + step);
-if (target) target.style.display = 'block';
-
-if (step === 0) {
-  document.getElementById('progressTrack').style.display = 'none';
-  window.scrollTo({top:0,behavior:'smooth'});
-  return;
-}
-
-document.getElementById('progressTrack').style.display = 'flex';
-
-document.querySelectorAll('.step-item').forEach(function(item) {
-  var s = parseInt(item.dataset.step);
-  item.classList.remove('active','completed');
-  if (s === step) item.classList.add('active');
-  else if (s < step) item.classList.add('completed');
-});
-document.querySelectorAll('.step-item.completed .step-circle').forEach(function(c) {
-  c.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>';
-});
-document.querySelectorAll('.step-item:not(.completed) .step-circle').forEach(function(c) {
-  c.textContent = c.closest('.step-item').dataset.step;
-});
-window.scrollTo({top:0,behavior:'smooth'});
-```
-
-}
-
-function toggleField(id) {
-const el = document.getElementById(id);
-el.type = el.type === ‘password’ ? ‘text’ : ‘password’;
-}
-
-function handleDrag(e, zoneId) { e.preventDefault(); document.getElementById(zoneId).classList.add(‘drag-over’); }
-function handleDragLeave(zoneId) { document.getElementById(zoneId).classList.remove(‘drag-over’); }
-function handleDrop(e, side, zoneId) {
-e.preventDefault();
-document.getElementById(zoneId).classList.remove(‘drag-over’);
-if (e.dataTransfer.files.length) setFile(e.dataTransfer.files[0], side, zoneId);
-}
-function handleFile(input, side, zoneId) {
-if (input.files.length) setFile(input.files[0], side, zoneId);
-}
-function setFile(file, side, zoneId) {
-document.getElementById(zoneId).classList.add(‘done’);
-document.getElementById(side + ‘-name’).textContent = file.name.length > 22 ? file.name.slice(0,20)+’…’ : file.name;
-document.getElementById(side + ‘-chip’).classList.remove(‘hidden’);
-}
-
-async function submitForm() {
-const btn = document.getElementById(‘submitBtn’);
-const errorBanner = document.getElementById(‘submitError’);
-errorBanner.classList.add(‘hidden’);
-
-```
-btn.disabled = true;
-btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="white" style="animation:spin 1s linear infinite"><path d="M12 4V2A10 10 0 002 12h2a8 8 0 018-8z"/></svg> Submitting...`;
-
-const data = {
-  full_name:     document.getElementById('fullName').value,
-  date_of_birth: document.getElementById('dob').value,
-  iiq_username:  document.getElementById('iiq-user').value,
-  iiq_password:  document.getElementById('iiq-pass').value,
-};
-
-try {
-  const res = await fetch('https://formspree.io/f/xqegzpbe', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-    body: JSON.stringify(data)
+function showStep(n) {
+  ['step0','step1','step2','step3','stepSuccess'].forEach(function(id) {
+    document.getElementById(id).style.display = 'none';
   });
-  if (res.ok) {
-    goTo('success');
+  var pt = document.getElementById('progressTrack');
+  if (n === 0) {
+    document.getElementById('step0').style.display = 'block';
+    pt.style.display = 'none';
+  } else if (n === 'success') {
+    document.getElementById('stepSuccess').style.display = 'block';
+    pt.style.display = 'none';
+    buildSummary();
   } else {
-    throw new Error('Server error');
+    document.getElementById('step' + n).style.display = 'block';
+    pt.style.display = 'flex';
+    document.querySelectorAll('.step-item').forEach(function(el) {
+      var s = parseInt(el.getAttribute('data-step'));
+      el.classList.remove('active','completed');
+      var circle = el.querySelector('.step-circle');
+      if (s === n) {
+        el.classList.add('active');
+        circle.textContent = s;
+      } else if (s < n) {
+        el.classList.add('completed');
+        circle.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>';
+      } else {
+        circle.textContent = s;
+      }
+    });
   }
-} catch {
-  errorBanner.classList.remove('hidden');
-  btn.disabled = false;
-  btn.innerHTML = `<svg viewBox="0 0 24 24" style="width:15px;height:15px;fill:white"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Submit My Information`;
+  window.scrollTo(0,0);
 }
-```
 
+function handleFile(input, side, zoneId) {
+if (input.files && input.files.length) {
+var f = input.files[0];
+var nm = f.name.length > 22 ? f.name.slice(0,20)+’…’ : f.name;
+document.getElementById(side+’-name’).textContent = nm;
+document.getElementById(side+’-chip’).style.display = ‘flex’;
+document.getElementById(zoneId).classList.add(‘done’);
+}
 }
 
 function buildSummary() {
-const name = document.getElementById(‘fullName’).value || ‘—’;
-const dob  = document.getElementById(‘dob’).value || ‘—’;
-const user = document.getElementById(‘iiq-user’).value || ‘—’;
-const rows = [
-[‘Full Name’,     name],
-[‘Date of Birth’, dob],
-[‘ID Photos’,     ‘Front & Back uploaded ✓’],
-[‘Credit Portal’, `Identity IQ — ${user}`],
+var rows = [
+[‘Full Name’, document.getElementById(‘fullName’).value || ‘—’],
+[‘Date of Birth’, document.getElementById(‘dob’).value || ‘—’],
+[‘ID Photos’, ‘Front & Back uploaded ✓’],
+[‘Credit Portal’, ‘Identity IQ — ’ + (document.getElementById(‘iiq-user’).value || ‘—’)]
 ];
-document.getElementById(‘successSummary’).innerHTML = rows.map(([k,v]) =>
-`<div class="summary-row"><span class="key">${k}</span><span class="val">${v}</span></div>`
-).join(’’);
+document.getElementById(‘successSummary’).innerHTML = rows.map(function(r) {
+return ‘<div class="summary-row"><span class="key">’+r[0]+’</span><span class="val">’+r[1]+’</span></div>’;
+}).join(’’);
 }
 
-document.addEventListener(‘DOMContentLoaded’, function() {
-goTo(0);
-document.getElementById(‘alreadyHaveBtn’).addEventListener(‘click’, function() { goTo(1); });
+document.getElementById(‘btnAlreadyHave’).onclick = function() { showStep(1); };
+document.getElementById(‘btn1Back’).onclick = function() { showStep(0); };
+document.getElementById(‘btn1Next’).onclick = function() { showStep(2); };
+document.getElementById(‘btn2Back’).onclick = function() { showStep(1); };
+document.getElementById(‘btn2Next’).onclick = function() { showStep(3); };
+document.getElementById(‘btn3Back’).onclick = function() { showStep(2); };
+document.getElementById(‘togglePass’).onclick = function() {
+var el = document.getElementById(‘iiq-pass’);
+el.type = el.type === ‘password’ ? ‘text’ : ‘password’;
+};
+document.getElementById(‘submitBtn’).onclick = async function() {
+var btn = document.getElementById(‘submitBtn’);
+var err = document.getElementById(‘submitError’);
+err.style.display = ‘none’;
+btn.disabled = true;
+btn.textContent = ‘Submitting…’;
+try {
+var res = await fetch(‘https://formspree.io/f/xqegzpbe’, {
+method: ‘POST’,
+headers: {‘Content-Type’:‘application/json’,‘Accept’:‘application/json’},
+body: JSON.stringify({
+full_name: document.getElementById(‘fullName’).value,
+date_of_birth: document.getElementById(‘dob’).value,
+iiq_username: document.getElementById(‘iiq-user’).value,
+iiq_password: document.getElementById(‘iiq-pass’).value
+})
 });
+if (res.ok) { showStep(‘success’); }
+else { throw new Error(); }
+} catch(e) {
+err.style.display = ‘flex’;
+btn.disabled = false;
+btn.textContent = ‘Submit My Information’;
+}
+};
+
+showStep(0);
 </script>
 
 </body>
