@@ -133,7 +133,6 @@ input::placeholder { color: #BBBBBB; }
 .btn-submit svg { width: 15px; height: 15px; fill: white; }
 .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
 
-/* Step 0 styles */
 .iiq-landing-icon { width: 72px; height: 72px; background: linear-gradient(135deg, var(–navy), var(–navy-light)); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; box-shadow: 0 6px 24px rgba(11,31,58,0.18); }
 .iiq-landing-icon svg { width: 34px; height: 34px; fill: var(–gold); }
 .iiq-landing-title { font-family: ‘Playfair Display’, serif; font-size: 22px; font-weight: 700; color: var(–text-dark); text-align: center; margin-bottom: 10px; }
@@ -203,7 +202,7 @@ input::placeholder { color: #BBBBBB; }
     </div>
   </div>
 
-  <!-- STEP 0: Identity IQ Signup -->
+  <!-- STEP 0 -->
 
   <div class="card" id="step0">
     <div class="iiq-landing-icon">
@@ -347,67 +346,59 @@ input::placeholder { color: #BBBBBB; }
         <p>Used to import your credit reports into DisputeFox</p>
       </div>
     </div>
-
-```
-<div class="iiq-signup-banner">
-  <div class="iiq-icon-box">
-    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-  </div>
-  <div class="iiq-banner-text">
-    <strong>Don't have an Identity IQ account yet?</strong>
-    <span>Sign up through our link before entering your login below</span>
-  </div>
-  <a class="iiq-signup-btn" href="https://www.identityiq.com/sc-securemax.aspx?offercode=4312986F" target="_blank" rel="noopener noreferrer">
-    Sign Up
-    <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
-  </a>
-</div>
-
-<div class="credential-disclosure">
-  <div class="credential-disclosure-header">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--gold)"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7L12 2z"/></svg>
-    <strong>Why we need your login</strong>
-  </div>
-  <ul>
-    <li>Your credentials are used by our DisputeFox software to access and import your credit reports on your behalf.</li>
-    <li>We will only log in to retrieve your credit report data — no account changes will be made.</li>
-    <li>Your login is submitted over an encrypted connection. We recommend changing your IdentityIQ password after your reports have been imported.</li>
-    <li>Your credentials are not shared with any third party outside of this service.</li>
-  </ul>
-</div>
-
-<div class="form-row">
-  <div class="field">
-    <label>Identity IQ Email / Username <span class="req">*</span></label>
-    <input type="text" id="iiq-user" placeholder="Your IdentityIQ login email" autocomplete="off">
-  </div>
-</div>
-<div class="form-row">
-  <div class="field">
-    <label>Identity IQ Password <span class="req">*</span></label>
-    <div class="ssn-wrapper">
-      <input type="password" id="iiq-pass" placeholder="Your IdentityIQ password" autocomplete="off">
-      <button class="ssn-toggle" type="button" onclick="toggleField('iiq-pass')">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+    <div class="iiq-signup-banner">
+      <div class="iiq-icon-box">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+      </div>
+      <div class="iiq-banner-text">
+        <strong>Don't have an Identity IQ account yet?</strong>
+        <span>Sign up through our link before entering your login below</span>
+      </div>
+      <a class="iiq-signup-btn" href="https://www.identityiq.com/sc-securemax.aspx?offercode=4312986F" target="_blank" rel="noopener noreferrer">
+        Sign Up
+        <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+      </a>
+    </div>
+    <div class="credential-disclosure">
+      <div class="credential-disclosure-header">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--gold)"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7L12 2z"/></svg>
+        <strong>Why we need your login</strong>
+      </div>
+      <ul>
+        <li>Your credentials are used by our DisputeFox software to access and import your credit reports on your behalf.</li>
+        <li>We will only log in to retrieve your credit report data — no account changes will be made.</li>
+        <li>Your login is submitted over an encrypted connection. We recommend changing your IdentityIQ password after your reports have been imported.</li>
+        <li>Your credentials are not shared with any third party outside of this service.</li>
+      </ul>
+    </div>
+    <div class="form-row">
+      <div class="field">
+        <label>Identity IQ Email / Username <span class="req">*</span></label>
+        <input type="text" id="iiq-user" placeholder="Your IdentityIQ login email" autocomplete="off">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="field">
+        <label>Identity IQ Password <span class="req">*</span></label>
+        <div class="ssn-wrapper">
+          <input type="password" id="iiq-pass" placeholder="Your IdentityIQ password" autocomplete="off">
+          <button class="ssn-toggle" type="button" onclick="toggleField('iiq-pass')">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="submitError" class="error-banner hidden">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Something went wrong. Please try again.
+    </div>
+    <div class="nav-buttons">
+      <button class="btn-back" onclick="goTo(2)">Back</button>
+      <button class="btn-submit" id="submitBtn" onclick="submitForm()">
+        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        Submit My Information
       </button>
     </div>
-  </div>
-</div>
-
-<div id="submitError" class="error-banner hidden">
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-  Something went wrong. Please try again.
-</div>
-
-<div class="nav-buttons">
-  <button class="btn-back" onclick="goTo(2)">Back</button>
-  <button class="btn-submit" id="submitBtn" onclick="submitForm()">
-    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-    Submit My Information
-  </button>
-</div>
-```
-
   </div>
 
   <!-- SUCCESS -->
