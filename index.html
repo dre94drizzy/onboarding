@@ -4,453 +4,191 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Client Onboarding — Credit Repair</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Client Onboarding</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;600&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: #0B1F3A;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 20px 60px;
-}
-.page-wrapper { width: 100%; max-width: 660px; }
-.header { text-align: center; padding: 52px 0 38px; }
-.logo-badge { display: inline-flex; align-items: center; gap: 10px; background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.25); border-radius: 50px; padding: 8px 20px; margin-bottom: 22px; }
-.logo-badge-dot { width: 8px; height: 8px; border-radius: 50%; background: #C9A84C; animation: pulse 2s infinite; }
-@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
-.logo-badge span { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #C9A84C; }
-.header h1 { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: white; margin-bottom: 12px; }
-.header h1 span { color: #C9A84C; }
-.header p { font-size: 14px; color: #7A92A8; max-width: 400px; margin: 0 auto; line-height: 1.7; }
-.progress-track { display: flex; align-items: center; justify-content: center; margin-bottom: 34px; }
-.step-item { display: flex; flex-direction: column; align-items: center; gap: 7px; flex: 1; position: relative; }
-.step-item::before { content: ''; position: absolute; top: 17px; left: calc(50% + 18px); right: calc(-50% + 18px); height: 1px; background: rgba(201,168,76,0.2); }
-.step-item:last-child::before { display: none; }
-.step-circle { width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid rgba(201,168,76,0.3); background: #0B1F3A; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #7A92A8; position: relative; z-index: 2; }
-.step-item.active .step-circle { background: #C9A84C; border-color: #C9A84C; color: #0B1F3A; }
-.step-item.completed .step-circle { background: rgba(201,168,76,0.15); border-color: #C9A84C; color: #C9A84C; }
-.step-label { font-size: 10px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: #7A92A8; text-align: center; }
-.step-item.active .step-label { color: #C9A84C; }
-.card { background: white; border-radius: 20px; padding: 40px 44px; box-shadow: 0 8px 40px rgba(11,31,58,0.13); border: 1px solid rgba(201,168,76,0.15); }
-.iiq-landing-icon { width: 72px; height: 72px; background: linear-gradient(135deg, #0B1F3A, #1C3A5C); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
-.iiq-landing-icon svg { width: 34px; height: 34px; fill: #C9A84C; }
-.iiq-landing-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #0B1F3A; text-align: center; margin-bottom: 10px; }
-.iiq-landing-title span { color: #C9A84C; }
-.iiq-landing-sub { font-size: 14px; color: #7A92A8; text-align: center; line-height: 1.7; margin-bottom: 28px; }
-.iiq-steps-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
-.iiq-step-row { display: flex; align-items: flex-start; gap: 14px; background: #F5F0E8; border-radius: 11px; padding: 14px 16px; }
-.iiq-step-num { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #0B1F3A, #1C3A5C); color: #C9A84C; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.iiq-step-text strong { display: block; font-size: 13px; font-weight: 600; color: #0B1F3A; margin-bottom: 2px; }
-.iiq-step-text span { font-size: 12px; color: #7A92A8; line-height: 1.5; }
-.btn-iiq-signup { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 15px 24px; background: linear-gradient(135deg, #C9A84C, #E8C96A); color: #0B1F3A; border: none; border-radius: 11px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700; text-decoration: none; cursor: pointer; margin-bottom: 14px; }
-.btn-iiq-signup svg { width: 15px; height: 15px; fill: #0B1F3A; }
-.btn-already-have { display: flex; align-items: center; justify-content: center; width: 100%; padding: 13px 24px; background: transparent; border: 1.5px solid #DDD8CC; border-radius: 11px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; color: #3A5070; cursor: pointer; }
-.section-title { display: flex; align-items: center; gap: 12px; margin-bottom: 26px; padding-bottom: 18px; border-bottom: 1px solid #EDE6D6; }
-.section-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #0B1F3A, #1C3A5C); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.section-icon svg { width: 19px; height: 19px; fill: #C9A84C; }
-.section-title-text h2 { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 600; color: #0B1F3A; }
-.section-title-text p { font-size: 12px; color: #7A92A8; margin-top: 2px; }
-.security-notice { display: flex; align-items: flex-start; gap: 9px; background: rgba(11,31,58,0.05); border: 1px solid rgba(11,31,58,0.1); border-radius: 9px; padding: 11px 13px; margin-bottom: 18px; font-size: 12px; color: #3A5070; line-height: 1.5; }
-.form-row { display: grid; gap: 16px; margin-bottom: 16px; }
-.field { display: flex; flex-direction: column; gap: 7px; }
-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3A5070; }
-.req { color: #C9A84C; margin-left: 2px; }
-input[type="text"], input[type="date"], input[type="password"] { width: 100%; padding: 12px 15px; border: 1.5px solid #DDD8CC; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: #0B1F3A; background: #F5F0E8; outline: none; }
+body { font-family: "DM Sans", sans-serif; background: #0B1F3A; min-height: 100vh; display: flex; justify-content: center; padding: 40px 20px; }
+.wrap { width: 100%; max-width: 620px; }
+h1 { font-family: "Playfair Display", serif; color: white; text-align: center; font-size: 32px; margin-bottom: 8px; }
+h1 span { color: #C9A84C; }
+.sub { color: #7A92A8; text-align: center; margin-bottom: 30px; font-size: 14px; }
+.card { background: white; border-radius: 16px; padding: 36px; margin-bottom: 20px; }
+.step { display: none; }
+.step.active { display: block; }
+.step-title { font-family: "Playfair Display", serif; font-size: 20px; color: #0B1F3A; margin-bottom: 20px; }
+.field { margin-bottom: 16px; }
+label { display: block; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #3A5070; margin-bottom: 6px; }
+input { width: 100%; padding: 12px 14px; border: 1.5px solid #DDD8CC; border-radius: 8px; font-size: 14px; font-family: "DM Sans", sans-serif; color: #0B1F3A; background: #F5F0E8; outline: none; }
 input:focus { border-color: #C9A84C; }
-input::placeholder { color: #BBBBBB; }
-.ssn-wrapper { position: relative; }
-.ssn-wrapper input { padding-right: 44px; }
-.ssn-toggle { position: absolute; right: 13px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: #7A92A8; display: flex; align-items: center; }
-.upload-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #3A5070; display: block; margin-bottom: 9px; }
-.id-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.upload-zone { border: 2px dashed rgba(201,168,76,0.4); border-radius: 13px; padding: 28px 16px; text-align: center; cursor: pointer; background: rgba(201,168,76,0.03); position: relative; overflow: hidden; }
-.upload-zone.done { border-color: #2A7A5A; border-style: solid; }
-.upload-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
-.upload-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #0B1F3A, #1C3A5C); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 0 auto 11px; }
-.upload-icon svg { width: 19px; height: 19px; fill: #C9A84C; }
-.upload-zone h3 { font-size: 13px; font-weight: 600; color: #0B1F3A; margin-bottom: 5px; }
-.upload-zone p { font-size: 11px; color: #7A92A8; line-height: 1.5; }
-.upload-zone p strong { color: #C9A84C; }
-.file-chip { margin-top: 10px; display: flex; align-items: center; gap: 7px; background: rgba(11,31,58,0.06); border-radius: 7px; padding: 7px 10px; font-size: 11px; color: #0B1F3A; font-weight: 500; pointer-events: none; }
-.file-chip span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
-.iiq-signup-banner { display: flex; align-items: center; gap: 14px; background: linear-gradient(135deg, #0B1F3A, #1C3A5C); border-radius: 13px; padding: 16px 18px; margin-bottom: 16px; flex-wrap: wrap; }
-.iiq-icon-box { width: 42px; height: 42px; background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.iiq-icon-box svg { width: 22px; height: 22px; fill: #C9A84C; }
-.iiq-banner-text { flex: 1; }
-.iiq-banner-text strong { display: block; font-size: 13px; font-weight: 600; color: white; margin-bottom: 2px; }
-.iiq-banner-text span { font-size: 11px; color: rgba(255,255,255,0.5); }
-.iiq-signup-btn { display: inline-flex; align-items: center; gap: 6px; background: #C9A84C; color: #0B1F3A; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700; padding: 9px 15px; border-radius: 8px; text-decoration: none; white-space: nowrap; }
-.iiq-signup-btn svg { width: 12px; height: 12px; fill: #0B1F3A; }
-.credential-disclosure { background: #FFFBF0; border: 1.5px solid rgba(201,168,76,0.4); border-radius: 12px; padding: 16px 18px; margin-bottom: 20px; }
-.credential-disclosure-header { display: flex; align-items: center; gap: 9px; margin-bottom: 10px; }
-.credential-disclosure-header strong { font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #0B1F3A; }
-.credential-disclosure ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 7px; }
-.credential-disclosure ul li { display: flex; align-items: flex-start; gap: 9px; font-size: 12px; color: #3A5070; line-height: 1.55; }
-.credential-disclosure ul li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: #C9A84C; flex-shrink: 0; margin-top: 5px; }
-.nav-buttons { display: flex; gap: 12px; margin-top: 28px; }
-.btn-back { padding: 13px 24px; border: 1.5px solid #DDD8CC; border-radius: 10px; background: transparent; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; color: #3A5070; cursor: pointer; }
-.btn-next { flex: 1; padding: 14px 24px; background: linear-gradient(135deg, #0B1F3A, #1C3A5C); color: white; border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
-.btn-next svg { width: 15px; height: 15px; }
-.btn-submit { flex: 1; padding: 14px 24px; background: linear-gradient(135deg, #1a5c38, #1f7a4a); color: white; border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
-.btn-submit svg { width: 15px; height: 15px; fill: white; }
-.btn-submit:disabled { opacity: 0.7; cursor: not-allowed; }
-.error-banner { display: flex; align-items: center; gap: 9px; background: rgba(168,50,50,0.07); border: 1px solid rgba(168,50,50,0.25); border-radius: 9px; padding: 11px 14px; margin-top: 14px; font-size: 13px; color: #7a2020; }
-.success-card { text-align: center; padding: 52px 36px; }
-.success-icon { width: 76px; height: 76px; background: linear-gradient(135deg, #0B1F3A, #1C3A5C); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
-.success-icon svg { width: 34px; height: 34px; fill: #C9A84C; }
-.success-card h2 { font-family: 'Playfair Display', serif; font-size: 26px; color: #0B1F3A; margin-bottom: 12px; }
-.success-card > p { font-size: 14px; color: #3A5070; line-height: 1.7; max-width: 370px; margin: 0 auto 26px; }
-.success-summary { background: #F5F0E8; border-radius: 12px; padding: 22px 24px; text-align: left; }
-.summary-row { display: flex; align-items: baseline; gap: 10px; padding: 8px 0; border-bottom: 1px solid #EDE6D6; font-size: 13px; }
-.summary-row:last-child { border-bottom: none; }
-.summary-row .key { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #7A92A8; width: 110px; flex-shrink: 0; }
-.summary-row .val { color: #0B1F3A; font-weight: 500; }
-.footer { text-align: center; padding: 24px 0 0; font-size: 12px; color: rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; gap: 14px; }
-@media (max-width: 560px) {
-  .card { padding: 26px 20px; }
-  .id-grid { grid-template-columns: 1fr; }
-  .nav-buttons { flex-direction: column; }
-  .btn-back { order: 2; }
-}
+.step-row { display: flex; gap: 12px; align-items: flex-start; background: #F5F0E8; border-radius: 10px; padding: 14px; margin-bottom: 10px; }
+.num { width: 28px; height: 28px; background: #0B1F3A; color: #C9A84C; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+.step-row strong { display: block; font-size: 13px; color: #0B1F3A; margin-bottom: 2px; }
+.step-row span { font-size: 12px; color: #7A92A8; }
+.btn-gold { display: block; width: 100%; padding: 14px; background: #C9A84C; color: #0B1F3A; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; font-family: "DM Sans", sans-serif; cursor: pointer; text-align: center; text-decoration: none; margin-bottom: 12px; }
+.btn-outline { display: block; width: 100%; padding: 13px; background: white; color: #3A5070; border: 1.5px solid #DDD8CC; border-radius: 10px; font-size: 14px; font-weight: 600; font-family: "DM Sans", sans-serif; cursor: pointer; text-align: center; }
+.btn-navy { display: block; width: 100%; padding: 14px; background: #0B1F3A; color: white; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; font-family: "DM Sans", sans-serif; cursor: pointer; text-align: center; margin-top: 20px; }
+.btn-green { display: block; width: 100%; padding: 14px; background: #1a5c38; color: white; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; font-family: "DM Sans", sans-serif; cursor: pointer; text-align: center; margin-top: 20px; }
+.btn-back { background: none; border: 1.5px solid #DDD8CC; color: #3A5070; border-radius: 10px; padding: 12px 20px; font-size: 14px; font-family: "DM Sans", sans-serif; cursor: pointer; margin-top: 12px; }
+.notice { background: #FFFBF0; border: 1.5px solid rgba(201,168,76,0.4); border-radius: 10px; padding: 14px; margin-bottom: 16px; font-size: 12px; color: #3A5070; line-height: 1.6; }
+.upload-box { border: 2px dashed #C9A84C; border-radius: 12px; padding: 24px; text-align: center; margin-bottom: 12px; position: relative; background: rgba(201,168,76,0.03); cursor: pointer; }
+.upload-box input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+.upload-box h3 { font-size: 14px; color: #0B1F3A; margin-bottom: 4px; }
+.upload-box p { font-size: 12px; color: #7A92A8; }
+.fname { font-size: 12px; color: #2A7A5A; margin-top: 8px; font-weight: 600; }
+.success-icon { width: 70px; height: 70px; background: #0B1F3A; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+.success-icon svg { width: 32px; height: 32px; fill: #C9A84C; }
+.error { color: #7a2020; font-size: 13px; margin-top: 10px; display: none; }
+.progress { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2); }
+.dot.active { background: #C9A84C; }
+.dot.done { background: rgba(201,168,76,0.5); }
 </style>
 </head>
 <body>
-<div class="page-wrapper">
+<div class="wrap">
+  <h1>Client <span>Onboarding</span></h1>
+  <p class="sub">Complete all steps to begin your credit repair</p>
 
-  <div class="header">
-    <div class="logo-badge">
-      <div class="logo-badge-dot"></div>
-      <span>Secure Client Portal</span>
-    </div>
-    <h1>Client <span>Onboarding</span></h1>
-    <p>Complete all steps so we can begin working on your credit repair right away.</p>
+  <div class="progress" id="progress" style="display:none">
+    <div class="dot" id="d1"></div>
+    <div class="dot" id="d2"></div>
+    <div class="dot" id="d3"></div>
   </div>
 
-  <div class="progress-track" id="progressTrack" style="display:none">
-    <div class="step-item" data-step="1">
-      <div class="step-circle">1</div>
-      <span class="step-label">Personal</span>
-    </div>
-    <div class="step-item" data-step="2">
-      <div class="step-circle">2</div>
-      <span class="step-label">ID Upload</span>
-    </div>
-    <div class="step-item" data-step="3">
-      <div class="step-circle">3</div>
-      <span class="step-label">Credit Login</span>
-    </div>
-  </div>
+  <div class="card">
 
-  <!-- STEP 0 -->
-
-  <div class="card" id="step0">
-    <div class="iiq-landing-icon">
-      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-    </div>
-    <div class="iiq-landing-title">First, Sign Up for <span>Identity IQ</span></div>
-    <p class="iiq-landing-sub">Before filling out your onboarding form, you'll need an active Identity IQ account. It takes just a few minutes.</p>
-    <div class="iiq-steps-list">
-      <div class="iiq-step-row">
-        <div class="iiq-step-num">1</div>
-        <div class="iiq-step-text">
-          <strong>Click the button below</strong>
-          <span>Sign up for Identity IQ through our secure link. It will open in a new tab.</span>
-        </div>
-      </div>
-      <div class="iiq-step-row">
-        <div class="iiq-step-num">2</div>
-        <div class="iiq-step-text">
-          <strong>Create your account</strong>
-          <span>Complete the Identity IQ signup and note your login email and password.</span>
-        </div>
-      </div>
-      <div class="iiq-step-row">
-        <div class="iiq-step-num">3</div>
-        <div class="iiq-step-text">
-          <strong>Return here and continue</strong>
-          <span>Once your account is created, click the button below to start the form.</span>
-        </div>
-      </div>
-    </div>
-    <a class="btn-iiq-signup" href="https://www.identityiq.com/sc-securemax.aspx?offercode=4312986F" target="_blank" rel="noopener noreferrer">
-      <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
-      Create My Identity IQ Account
-    </a>
-    <button class="btn-already-have" id="btnAlreadyHave">
-      I Already Have an Account — Continue to Form
-    </button>
-  </div>
-
-  <!-- STEP 1 -->
-
-  <div class="card" id="step1" style="display:none">
-    <div class="section-title">
-      <div class="section-icon">
-        <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
-      </div>
-      <div class="section-title-text">
-        <h2>Personal Information</h2>
-        <p>Legal name and identification details</p>
-      </div>
-    </div>
-    <div class="security-notice">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="#0B1F3A" style="opacity:.5;flex-shrink:0;margin-top:1px"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7L12 2z"/></svg>
-      All information is transmitted over 256-bit SSL encryption and used solely for your credit repair process.
-    </div>
-    <div class="form-row">
-      <div class="field">
-        <label>Full Legal Name <span class="req">*</span></label>
-        <input type="text" id="fullName" placeholder="As it appears on your government ID">
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="field">
-        <label>Date of Birth <span class="req">*</span></label>
-        <input type="date" id="dob">
-      </div>
-    </div>
-    <div class="nav-buttons">
-      <button class="btn-back" id="btn1Back">Back</button>
-      <button class="btn-next" id="btn1Next">
-        <span>Continue to ID Upload</span>
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
-      </button>
-    </div>
-  </div>
-
-  <!-- STEP 2 -->
-
-  <div class="card" id="step2" style="display:none">
-    <div class="section-title">
-      <div class="section-icon">
-        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8h16v10zM6 10h4v4H6z"/></svg>
-      </div>
-      <div class="section-title-text">
-        <h2>Government-Issued ID</h2>
-        <p>Clear photo of both sides of your ID</p>
-      </div>
-    </div>
-    <div class="id-grid">
-      <div>
-        <span class="upload-label">Front of ID <span class="req">*</span></span>
-        <div class="upload-zone" id="frontZone">
-          <input type="file" accept="image/*,.pdf" onchange="handleFile(this,'front','frontZone')">
-          <div class="upload-icon"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div>
-          <h3>Front of ID</h3>
-          <p>Driver's License, Passport or State ID<br><strong>JPG, PNG or PDF</strong></p>
-          <div class="file-chip" id="front-chip" style="display:none">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="#C9A84C"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg>
-            <span id="front-name"></span>
-          </div>
-        </div>
-      </div>
-      <div>
-        <span class="upload-label">Back of ID <span class="req">*</span></span>
-        <div class="upload-zone" id="backZone">
-          <input type="file" accept="image/*,.pdf" onchange="handleFile(this,'back','backZone')">
-          <div class="upload-icon"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div>
-          <h3>Back of ID</h3>
-          <p>Make sure all text is clearly visible<br><strong>JPG, PNG or PDF</strong></p>
-          <div class="file-chip" id="back-chip" style="display:none">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="#C9A84C"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg>
-            <span id="back-name"></span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="nav-buttons" style="margin-top:24px">
-      <button class="btn-back" id="btn2Back">Back</button>
-      <button class="btn-next" id="btn2Next">
-        <span>Continue to Credit Login</span>
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
-      </button>
-    </div>
-  </div>
-
-  <!-- STEP 3 -->
-
-  <div class="card" id="step3" style="display:none">
-    <div class="section-title">
-      <div class="section-icon">
-        <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
-      </div>
-      <div class="section-title-text">
-        <h2>Identity IQ Login</h2>
-        <p>Used to import your credit reports into DisputeFox</p>
-      </div>
-    </div>
-    <div class="iiq-signup-banner">
-      <div class="iiq-icon-box">
-        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-      </div>
-      <div class="iiq-banner-text">
-        <strong>Don't have an Identity IQ account yet?</strong>
-        <span>Sign up through our link before entering your login below</span>
-      </div>
-      <a class="iiq-signup-btn" href="https://www.identityiq.com/sc-securemax.aspx?offercode=4312986F" target="_blank" rel="noopener noreferrer">
-        Sign Up
-        <svg viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
-      </a>
-    </div>
-    <div class="credential-disclosure">
-      <div class="credential-disclosure-header">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="#C9A84C"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7L12 2z"/></svg>
-        <strong>Why we need your login</strong>
-      </div>
-      <ul>
-        <li>Your credentials are used by our DisputeFox software to access and import your credit reports on your behalf.</li>
-        <li>We will only log in to retrieve your credit report data — no account changes will be made.</li>
-        <li>Your login is submitted over an encrypted connection. We recommend changing your IdentityIQ password after your reports have been imported.</li>
-        <li>Your credentials are not shared with any third party outside of this service.</li>
-      </ul>
-    </div>
-    <div class="form-row">
-      <div class="field">
-        <label>Identity IQ Email / Username <span class="req">*</span></label>
-        <input type="text" id="iiq-user" placeholder="Your IdentityIQ login email" autocomplete="off">
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="field">
-        <label>Identity IQ Password <span class="req">*</span></label>
-        <div class="ssn-wrapper">
-          <input type="password" id="iiq-pass" placeholder="Your IdentityIQ password" autocomplete="off">
-          <button class="ssn-toggle" type="button" id="togglePass">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-    <div id="submitError" class="error-banner" style="display:none">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-      Something went wrong. Please try again.
-    </div>
-    <div class="nav-buttons">
-      <button class="btn-back" id="btn3Back">Back</button>
-      <button class="btn-submit" id="submitBtn">
-        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-        Submit My Information
-      </button>
-    </div>
-  </div>
-
-  <!-- SUCCESS -->
-
-  <div class="card" id="stepSuccess" style="display:none">
-    <div class="success-card">
-      <div class="success-icon">
-        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-      </div>
-      <h2>You're All Set!</h2>
-      <p>We've received everything needed to get started. Our team will begin working on your file within <strong>1–2 business days</strong>.</p>
-      <div class="success-summary" id="successSummary"></div>
-    </div>
-  </div>
-
-  <div class="footer">
-    <span>🔒 256-bit SSL Encrypted</span>
-    <span>·</span>
-    <span>Transmitted Securely</span>
-  </div>
-
+```
+<!-- Step 0 -->
+<div class="step active" id="s0">
+  <div class="step-title">First, Sign Up for Identity IQ</div>
+  <p style="font-size:14px;color:#7A92A8;margin-bottom:20px;">You need an active Identity IQ account before filling out this form.</p>
+  <div class="step-row"><div class="num">1</div><div><strong>Click the button below</strong><span>Sign up through our secure link — opens in a new tab.</span></div></div>
+  <div class="step-row"><div class="num">2</div><div><strong>Create your account</strong><span>Note your login email and password.</span></div></div>
+  <div class="step-row"><div class="num">3</div><div><strong>Return here</strong><span>Click "I Already Have an Account" to continue.</span></div></div>
+  <br>
+  <a class="btn-gold" href="https://www.identityiq.com/sc-securemax.aspx?offercode=4312986F" target="_blank">Create My Identity IQ Account</a>
+  <button class="btn-outline" id="goS1">I Already Have an Account — Continue to Form</button>
 </div>
+
+<!-- Step 1 -->
+<div class="step" id="s1">
+  <div class="step-title">Personal Information</div>
+  <div class="field"><label>Full Legal Name *</label><input type="text" id="fullName" placeholder="As it appears on your ID"></div>
+  <div class="field"><label>Date of Birth *</label><input type="date" id="dob"></div>
+  <button class="btn-navy" id="goS2">Continue to ID Upload</button>
+  <button class="btn-back" id="backS0">Back</button>
+</div>
+
+<!-- Step 2 -->
+<div class="step" id="s2">
+  <div class="step-title">Government-Issued ID</div>
+  <div class="upload-box" id="frontBox">
+    <input type="file" accept="image/*,.pdf" id="frontFile">
+    <h3>Front of ID</h3>
+    <p>Driver's License, Passport or State ID</p>
+    <div class="fname" id="frontName"></div>
+  </div>
+  <div class="upload-box" id="backBox">
+    <input type="file" accept="image/*,.pdf" id="backFile">
+    <h3>Back of ID</h3>
+    <p>Make sure all text is visible</p>
+    <div class="fname" id="backName"></div>
+  </div>
+  <button class="btn-navy" id="goS3">Continue to Credit Login</button>
+  <button class="btn-back" id="backS1">Back</button>
+</div>
+
+<!-- Step 3 -->
+<div class="step" id="s3">
+  <div class="step-title">Identity IQ Login</div>
+  <div class="notice">Your credentials are used to import your credit reports into DisputeFox. We only retrieve report data and make no account changes.</div>
+  <div class="field"><label>Identity IQ Email *</label><input type="text" id="iiqUser" placeholder="Your IdentityIQ login email" autocomplete="off"></div>
+  <div class="field"><label>Identity IQ Password *</label><input type="password" id="iiqPass" placeholder="Your IdentityIQ password" autocomplete="off"></div>
+  <div class="error" id="errMsg">Something went wrong. Please try again.</div>
+  <button class="btn-green" id="submitBtn">Submit My Information</button>
+  <button class="btn-back" id="backS2">Back</button>
+</div>
+
+<!-- Success -->
+<div class="step" id="sSuccess">
+  <div class="success-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+  <h2 style="font-family:'Playfair Display',serif;text-align:center;color:#0B1F3A;margin-bottom:12px;">You're All Set!</h2>
+  <p style="text-align:center;color:#3A5070;font-size:14px;line-height:1.7;">We've received everything needed. Our team will begin working on your file within 1-2 business days.</p>
+</div>
+```
+
+  </div>
+</div>
+
 <script>
-function showStep(n) {
-  ['step0','step1','step2','step3','stepSuccess'].forEach(function(id) {
-    document.getElementById(id).style.display = 'none';
-  });
-  var pt = document.getElementById('progressTrack');
-  if (n === 0) {
-    document.getElementById('step0').style.display = 'block';
-    pt.style.display = 'none';
-  } else if (n === 'success') {
-    document.getElementById('stepSuccess').style.display = 'block';
-    pt.style.display = 'none';
-    buildSummary();
-  } else {
-    document.getElementById('step' + n).style.display = 'block';
-    pt.style.display = 'flex';
-    document.querySelectorAll('.step-item').forEach(function(el) {
-      var s = parseInt(el.getAttribute('data-step'));
-      el.classList.remove('active','completed');
-      var circle = el.querySelector('.step-circle');
-      if (s === n) {
-        el.classList.add('active');
-        circle.textContent = s;
-      } else if (s < n) {
-        el.classList.add('completed');
-        circle.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>';
-      } else {
-        circle.textContent = s;
-      }
-    });
+function show(id) {
+  var steps = document.querySelectorAll(".step");
+  for (var i = 0; i < steps.length; i++) {
+    steps[i].classList.remove("active");
   }
-  window.scrollTo(0,0);
+  document.getElementById(id).classList.add("active");
+  window.scrollTo(0, 0);
+  var prog = document.getElementById("progress");
+  if (id === "s0" || id === "sSuccess") {
+    prog.style.display = "none";
+  } else {
+    prog.style.display = "flex";
+    var n = id === "s1" ? 1 : id === "s2" ? 2 : 3;
+    document.getElementById("d1").className = "dot" + (n >= 1 ? (n > 1 ? " done" : " active") : "");
+    document.getElementById("d2").className = "dot" + (n >= 2 ? (n > 2 ? " done" : " active") : "");
+    document.getElementById("d3").className = "dot" + (n >= 3 ? " active" : "");
+  }
 }
 
-function handleFile(input, side, zoneId) {
-if (input.files && input.files.length) {
-var f = input.files[0];
-var nm = f.name.length > 22 ? f.name.slice(0,20)+’…’ : f.name;
-document.getElementById(side+’-name’).textContent = nm;
-document.getElementById(side+’-chip’).style.display = ‘flex’;
-document.getElementById(zoneId).classList.add(‘done’);
-}
-}
+document.getElementById("goS1").onclick = function() { show("s1"); };
+document.getElementById("goS2").onclick = function() { show("s2"); };
+document.getElementById("goS3").onclick = function() { show("s3"); };
+document.getElementById("backS0").onclick = function() { show("s0"); };
+document.getElementById("backS1").onclick = function() { show("s1"); };
+document.getElementById("backS2").onclick = function() { show("s2"); };
 
-function buildSummary() {
-var rows = [
-[‘Full Name’, document.getElementById(‘fullName’).value || ‘—’],
-[‘Date of Birth’, document.getElementById(‘dob’).value || ‘—’],
-[‘ID Photos’, ‘Front & Back uploaded ✓’],
-[‘Credit Portal’, ‘Identity IQ — ’ + (document.getElementById(‘iiq-user’).value || ‘—’)]
-];
-document.getElementById(‘successSummary’).innerHTML = rows.map(function(r) {
-return ‘<div class="summary-row"><span class="key">’+r[0]+’</span><span class="val">’+r[1]+’</span></div>’;
-}).join(’’);
-}
-
-document.getElementById(‘btnAlreadyHave’).onclick = function() { showStep(1); };
-document.getElementById(‘btn1Back’).onclick = function() { showStep(0); };
-document.getElementById(‘btn1Next’).onclick = function() { showStep(2); };
-document.getElementById(‘btn2Back’).onclick = function() { showStep(1); };
-document.getElementById(‘btn2Next’).onclick = function() { showStep(3); };
-document.getElementById(‘btn3Back’).onclick = function() { showStep(2); };
-document.getElementById(‘togglePass’).onclick = function() {
-var el = document.getElementById(‘iiq-pass’);
-el.type = el.type === ‘password’ ? ‘text’ : ‘password’;
+document.getElementById("frontFile").onchange = function() {
+  if (this.files.length) {
+    document.getElementById("frontName").textContent = this.files[0].name;
+    document.getElementById("frontBox").style.borderColor = "#2A7A5A";
+  }
 };
-document.getElementById(‘submitBtn’).onclick = async function() {
-var btn = document.getElementById(‘submitBtn’);
-var err = document.getElementById(‘submitError’);
-err.style.display = ‘none’;
-btn.disabled = true;
-btn.textContent = ‘Submitting…’;
-try {
-var res = await fetch(‘https://formspree.io/f/xqegzpbe’, {
-method: ‘POST’,
-headers: {‘Content-Type’:‘application/json’,‘Accept’:‘application/json’},
-body: JSON.stringify({
-full_name: document.getElementById(‘fullName’).value,
-date_of_birth: document.getElementById(‘dob’).value,
-iiq_username: document.getElementById(‘iiq-user’).value,
-iiq_password: document.getElementById(‘iiq-pass’).value
-})
-});
-if (res.ok) { showStep(‘success’); }
-else { throw new Error(); }
-} catch(e) {
-err.style.display = ‘flex’;
-btn.disabled = false;
-btn.textContent = ‘Submit My Information’;
-}
+document.getElementById("backFile").onchange = function() {
+  if (this.files.length) {
+    document.getElementById("backName").textContent = this.files[0].name;
+    document.getElementById("backBox").style.borderColor = "#2A7A5A";
+  }
 };
 
-showStep(0);
+document.getElementById("submitBtn").onclick = async function() {
+  var btn = document.getElementById("submitBtn");
+  var err = document.getElementById("errMsg");
+  err.style.display = "none";
+  btn.disabled = true;
+  btn.textContent = "Submitting...";
+  try {
+    var res = await fetch("https://formspree.io/f/xqegzpbe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({
+        full_name: document.getElementById("fullName").value,
+        date_of_birth: document.getElementById("dob").value,
+        iiq_username: document.getElementById("iiqUser").value,
+        iiq_password: document.getElementById("iiqPass").value
+      })
+    });
+    if (res.ok) {
+      show("sSuccess");
+    } else {
+      throw new Error("fail");
+    }
+  } catch(e) {
+    err.style.display = "block";
+    btn.disabled = false;
+    btn.textContent = "Submit My Information";
+  }
+};
 </script>
 
 </body>
